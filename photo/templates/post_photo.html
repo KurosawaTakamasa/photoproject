@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Post{% endblock %}
+{% block contents %}
+<br>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+        {% for field in form %}
+            <tr>
+                <th>
+                    {{field.label_tag}}
+                </th>
+                <td>
+                    {{field}}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+        <br>
+        <button type="submit">投稿する</button>
+    </form>
+</div>
+{% endblock %}
