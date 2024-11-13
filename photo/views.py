@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 from django.urls import reverse_lazy
 from .forms import PhotoPostForm
 from .models import PhotoPost
@@ -25,3 +25,36 @@ class CreatePhotoView(CreateView):
 
 class PhotoSuccessView(TemplateView):
     template_name = 'post_success.html'
+    
+class CategoryView(ListView):
+    template_name = 'index.html'
+    paginate_by = 6
+    
+    def get_queryset(self):
+        category_id = self.kwargs['category']
+        records = PhotoPost.objects.filter(
+            category = category_id).order_by('-posted_at')
+        return records
+
+class UserView(ListView):
+    template_name = 'index.html'
+    paginate_by = 6
+    
+    def get_queryset(self):
+        user_id = self.kwargs['user']
+        records = PhotoPost.objects.filter(
+            user = user_id).order_by('-posted_at')
+        return records
+
+class PhotoDetailView(DetailView):
+    template_name = 'detail.html'
+    model = PhotoPost
+    
+class MypageView(ListView):
+    template_name = 'mypage.html'
+    paginate_by = 6
+    
+    def get_queryset(self):
+        records = PhotoPost.objects.filter(
+            user = self.request.user).order_by('-posted_at')
+        return records

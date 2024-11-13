@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Photo Detail {% endblock %}
+
+{% block contents %}
+<br>
+<div class="container">
+        <h2>{{object.title}}</h2>
+        <p>{{object.comment}}</p>
+        <br>
+        <p>{{object.posted_at}}に投稿</p>
+        <p><img src="{{object.image1.url}}" width="1280px" height="820px"></p>
+        {% if object.image2 %}
+        <p><img src="{{object.image2.url}}" width="1280px" height="820px"></p>
+        {% endif %}
+</div>
+{% endblock %}
