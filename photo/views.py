@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .forms import PhotoPostForm
 from .models import PhotoPost
@@ -58,3 +58,8 @@ class MypageView(ListView):
         records = PhotoPost.objects.filter(
             user = self.request.user).order_by('-posted_at')
         return records
+
+class PhotoDeleteView(DeleteView):
+    template_name = 'photo_delete.html'
+    model = PhotoPost
+    success_url = reverse_lazy('photo:mypage')

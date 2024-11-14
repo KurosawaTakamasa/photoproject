@@ -12,5 +12,11 @@
         {% if object.image2 %}
         <p><img src="{{object.image2.url}}" width="1280px" height="820px"></p>
         {% endif %}
+
+        {% if request.user == object.user %}
+                <a href="{% url 'photo:photo_delete' object.pk %}"
+                 class = "btn btn-primary my-2">削除する</a>
+        {% endif %}
+
 </div>
 {% endblock %}
